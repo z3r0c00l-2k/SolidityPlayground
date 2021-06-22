@@ -8,9 +8,10 @@
   },
   "scripts": {
     "dev": "lite-server",
-    "test": "echo \"Error: no test specified\" && sexit 1"
+    "test": "echo \"Error: no test specified\" && sexit 1",
+    "compile": "truffle compile",
+    "migrate": "truffle migrate --reset"
   },
-  "author": "gregory@dappuniversity.com",
   "license": "ISC",
   "devDependencies": {
     "bootstrap": "4.1.3",
