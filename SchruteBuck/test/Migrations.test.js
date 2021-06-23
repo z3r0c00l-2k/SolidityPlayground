@@ -31,16 +31,6 @@ contract("SchruteBuck", (accounts) => {
     );
   });
 
-  it("allocate initial supply", async () => {
-    const tokenInstance = await SchruteBuck.deployed();
-    const adminBalance = await tokenInstance.balanceOf(accounts[0]);
-    assert.equal(
-      adminBalance.toNumber(),
-      1000000,
-      "Allocate total supply to admin"
-    );
-  });
-
   it("Transfer tokens", async () => {
     const tokenInstance = await SchruteBuck.deployed();
     try {
