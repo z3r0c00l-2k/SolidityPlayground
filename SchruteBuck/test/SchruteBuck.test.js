@@ -1,8 +1,13 @@
 const SchruteBuck = artifacts.require("SchruteBuck");
 
-contract("SchruteBuck", (accounts) => {
+let tokenInstance;
+
+beforeEach(async () => {
+  tokenInstance = await SchruteBuck.deployed();
+});
+
+contract("SchruteBuck", async (accounts) => {
   it("Set Token Name, Symbol and Standard", async () => {
-    const tokenInstance = await SchruteBuck.deployed();
     const name = await tokenInstance.name();
     const symbol = await tokenInstance.symbol();
     const standard = await tokenInstance.standard();
@@ -12,7 +17,6 @@ contract("SchruteBuck", (accounts) => {
   });
 
   it("Sets the total supply", async () => {
-    const tokenInstance = await SchruteBuck.deployed();
     const totalSupply = await tokenInstance.totalSupply();
     assert.equal(
       totalSupply.toNumber(),
@@ -22,7 +26,6 @@ contract("SchruteBuck", (accounts) => {
   });
 
   it("allocate initial supply", async () => {
-    const tokenInstance = await SchruteBuck.deployed();
     const adminBalance = await tokenInstance.balanceOf(accounts[0]);
     assert.equal(
       adminBalance.toNumber(),
@@ -32,7 +35,6 @@ contract("SchruteBuck", (accounts) => {
   });
 
   it("Transfer tokens", async () => {
-    const tokenInstance = await SchruteBuck.deployed();
     try {
       await tokenInstance.transfer.call(accounts[1], 99999999999999);
       assert.fail();
@@ -97,7 +99,6 @@ contract("SchruteBuck", (accounts) => {
 
   it("Approve tokens for delegated transfer", async () => {
     const amountToTranfer = 100;
-    const tokenInstance = await SchruteBuck.deployed();
     const success = await tokenInstance.approve.call(
       accounts[1],
       amountToTranfer
@@ -138,7 +139,6 @@ contract("SchruteBuck", (accounts) => {
   });
 
   it("Handle delegated transfer", async () => {
-    const tokenInstance = await SchruteBuck.deployed();
     const initialFromBalance = 100;
     const accountToApprove = 20;
     const fromAccount = accounts[2];
