@@ -94,4 +94,37 @@ contract("SchruteBuck", (accounts) => {
       "Amount Debited From Address"
     );
   });
+
+  it("Approve tokens for delegated transfer", async () => {
+    const amountToTranfer = 100;
+    const tokenInstance = await SchruteBuck.deployed();
+    const success = await tokenInstance.approve.call(
+      accounts[1],
+      amountToTranfer
+    );
+    assert.equal(success, true, "It returns true");
+
+    const receipt = await tokenInstance.approve(accounts[1], amountToTranfer);
+    assert.equal(receipt.logs.length, 1, "triggers one event");
+    assert.equal(
+      receipt.logs[0].event,
+      "Approval",
+      'should be the "Approval" event'
+    );
+    assert.equal(
+      receipt.logs[0].args._owner,
+      accounts[0],
+      "logs the account the tokens are authorized by"
+    );
+    assert.equal(
+      receipt.logs[0].args._spender,
+      accounts[1],
+      "logs the account the tokens are authorized to"
+    );
+    assert.equal(
+      receipt.logs[0].args._value,
+      amountToTranfer,
+      "logs the transfer amount"
+    );
+  });
 });
