@@ -47,6 +47,7 @@ contract SchruteBuckSale {
         );
 
         // Distroy the Sale Contract
-        selfdestruct(admin);
+        // selfdestruct(payable(admin));
+        admin.transfer(address(this).balance);
     }
 }

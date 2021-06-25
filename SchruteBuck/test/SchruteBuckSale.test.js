@@ -112,10 +112,10 @@ contract("SchruteBuckSale", (accounts) => {
       from: admin,
     });
 
-    // const adminBalance = await tokenInstance.balanceOf(admin);
-    // assert.equal(adminBalance.toNumber(), 999990, "Returns all unsold tokens");
+    const adminBalance = await tokenInstance.balanceOf(admin);
+    assert.equal(adminBalance.toNumber(), 999990, "Returns all unsold tokens");
 
-    const price = await tokenSaleInstance.tokenPrice();
-    assert.equal(price.toNumber(), 0, "Token price is reset");
+    const balance = await web3.eth.getBalance(tokenSaleInstance.address);
+    assert.equal(balance, 0);
   });
 });
