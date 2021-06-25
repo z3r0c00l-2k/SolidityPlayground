@@ -20,7 +20,7 @@ contract("SchruteBuck", async (accounts) => {
     const totalSupply = await tokenInstance.totalSupply();
     assert.equal(
       totalSupply.toNumber(),
-      1000000,
+      10000000000,
       "Sets the total supply to 1,000,000"
     );
   });
@@ -29,7 +29,7 @@ contract("SchruteBuck", async (accounts) => {
     const adminBalance = await tokenInstance.balanceOf(accounts[0]);
     assert.equal(
       adminBalance.toNumber(),
-      1000000,
+      10000000000,
       "Allocate total supply to admin"
     );
   });

@@ -3,7 +3,7 @@ const SchruteBuck = artifacts.require("SchruteBuck");
 
 let tokenSaleInstance;
 let tokenInstance;
-const tokenPrice = 1000000000000000; // in wei
+const tokenPrice = 6000000000; // in wei
 
 beforeEach(async () => {
   tokenInstance = await SchruteBuck.deployed();
@@ -111,9 +111,13 @@ contract("SchruteBuckSale", (accounts) => {
     await tokenSaleInstance.endSale({
       from: admin,
     });
-
+    const totalSupply = await tokenInstance.totalSupply();
     const adminBalance = await tokenInstance.balanceOf(admin);
-    assert.equal(adminBalance.toNumber(), 999990, "Returns all unsold tokens");
+    assert.equal(
+      adminBalance.toNumber(),
+      totalSupply - noOfTokens,
+      "Returns all unsold tokens"
+    );
 
     const balance = await web3.eth.getBalance(tokenSaleInstance.address);
     assert.equal(balance, 0);
